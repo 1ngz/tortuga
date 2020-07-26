@@ -55,7 +55,7 @@ app.get("/buy", (req, res) => {
   DBquery().then((product) => {
     let src = `<div id="container">`;
     for (let i = 0; i < product.length; i++) {
-      src += `<button class="product" onclick="btnclick();">${product[i]}</button>`;
+      src += `<button class="product" name="product${i}">${product[i]}</button>`;
     }
     src += `</div>`;
     console.log(src);
@@ -64,6 +64,28 @@ app.get("/buy", (req, res) => {
     };
     res.render("buy.ejs", data);
   });
+});
+
+
+app.get("/buy/buythings", (req, res) => {
+  console.log("buy");
+  const sql = `insert TABLE values(,,);`; //insert OrderList Values (itemnumber, usernumber) 테이블 미구현
+
+  function DBquery() {
+    return new Promise((resolve, reject) => {
+      db.query(sql, (err, DBOrder) => {
+        if (err) throw err;
+        else {
+          console.log('insert 완료');
+          resolve();
+        }
+      });
+    });
+  }
+
+  DBquery().then(() => {
+    res.redirect('/buy');
+  })
 });
 
 app.get("/sell", (req, res) => {
