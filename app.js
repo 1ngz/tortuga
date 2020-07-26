@@ -2,6 +2,15 @@ const express = require("express");
 const http = require("http");
 const path = require("path");
 const static = require("serve-static");
+const mysql = require("mysql");
+
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "buythings",
+  password: "buythings",
+  database: "productlist",
+});
+db.connect();
 
 const ejs = require("ejs");
 
@@ -24,6 +33,37 @@ app.get("/menu", (req, res) => {
 
 app.get("/buy", (req, res) => {
   console.log("buy");
+  const sql = `select * from productlist.Product;`;
+
+  function DBquery() {
+    return new Promise((resolve, reject) => {
+      db.query(sql, (err, DBproduct) => {
+        if (err) throw err;
+        else {
+          let i = 0;
+          let product = new Array();
+          for (; i < DBproduct.length; i++) {
+            product.push(DBproduct[i].name);
+          }
+          if (i === DBproduct.length) {
+            resolve(product);
+          }
+        }
+      });
+    });
+  }
+  DBquery().then((product) => {
+    let src = `<div id="container">`;
+    for (let i = 0; i < product.length; i++) {
+      src += `<button class="product" onclick="btnclick();">${product[i]}</button>`;
+    }
+    src += `</div>`;
+    console.log(src);
+    const data = {
+      list: src,
+    };
+    res.render("buy.ejs", data);
+  });
 });
 
 app.get("/sell", (req, res) => {

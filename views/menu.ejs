@@ -9,27 +9,31 @@
     #divLogin {
       display: flex;
       flex-direction: column;
-      margin-top: 100px;
+      margin-top: 80px;
     }
 
     #divLogin button {
       margin-bottom: 10px;
-      width: 100%;
+      margin-left: 25%;
+      width: 50%;
     }
   </style>
 </head>
 
 <body>
   <section>
-    <div id="mainpage">
-      <h1 style="margin-bottom:0px">메 뉴 선 택</h1>
+    <header>
+      <h1 style="font-family:Fantasy;">토 투 가</h1>
+      <h4>T O R T U G A</h4>
+    </header>
+    <div id="selectmenu">
+      <h1>메 뉴 선 택</h1>
       <div id="divLogin">
         <button id="btnstart" onclick="location.href='./buy'">매입하기</button>
 
         <button id="btnstart" onclick="location.href='./sell'">판매하기</button>
 
         <button id="btnstart" onclick="location.href='./inventory'">저장소</button>
-
       </div>
     </div>
   </section>

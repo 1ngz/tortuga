@@ -1,0 +1,51 @@
+<!Doctype html>
+
+<html>
+
+<head>
+  <title>buy!</title>
+</head>
+<link rel='stylesheet' type="text/css" href="../css/style.css">
+<style>
+  #container {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 25px;
+
+    height: 300px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product {
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: black;
+    font-size: 16pt;
+    text-align: left;
+  }
+
+  .product a:link,
+  a:hover,
+  a:visited {
+    color: black;
+    text-decoration: none;
+  }
+</style>
+<script>
+  function btnclick() {
+    alert('버튼클릭');
+  }
+</script>
+
+<body>
+  <section>
+    <h2>상 품 리 스 트</h2>
+    <%-list%>
+    </div>
+  </section>
+</body>
+
+</html>
