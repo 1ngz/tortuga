@@ -57,6 +57,24 @@
     height: 90%;
 
   }
+
+  nav {
+    float: right;
+  }
+
+  nav a:visited,
+  a:hover,
+  a:link {
+    text-decoration: none;
+    color: black;
+
+    font-weight: bold;
+  }
+
+  nav a:hover {
+    color: white;
+
+  }
 </style>
 <script>
   window.onload = function () {
@@ -106,6 +124,7 @@
 <body>
   <section>
     <h2>인 벤 토 리</h2>
+    <nav><a href="/menu">메뉴 선택</a></nav>
     <%-list%>
     </div>
   </section>

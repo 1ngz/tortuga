@@ -20,6 +20,8 @@ id varchar(25) PRIMARY KEY,
 pw varchar(25),
 name varchar(20)
 );
+
+drop table productlist.orderlist;
 CREATE TABLE productlist.orderlist (
 orderid int AUTO_INCREMENT PRIMARY KEY,
 userid varchar(25),
@@ -41,5 +43,8 @@ insert into productlist.orderlist(userid,productid) values('dlwlgur7',2);
 
 select * from productlist.Product;
 select * from productlist.user;
-select * from productlist.orderlist;
+select * from productlist.orderlist;	
 
+
+select name,count(*) from productlist.Product where id in 
+  (select productid from productlist.orderlist where userid = 'dlwlgur7');

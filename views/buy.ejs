@@ -60,6 +60,23 @@
     height: 90%;
 
   }
+
+
+  nav {
+    float: right;
+  }
+
+  nav a:visited,
+  a:hover,
+  a:link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+  nav a:hover {
+    color: white;
+  }
 </style>
 <script>
   window.onload = function () {
@@ -108,6 +125,7 @@
 <body>
   <section>
     <h2>상 품 리 스 트</h2>
+    <nav><a href="/menu">뒤로가기</a></nav>
     <%-list%>
     </div>
   </section>
