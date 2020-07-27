@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>토투가</title>
+  <title>토투가 - inventory</title>
 </head>
 <link rel='stylesheet' type="text/css" href="../css/style.css">
 <style>
@@ -42,9 +42,6 @@
   }
 
 
-
-
-
   .additional {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
@@ -80,13 +77,13 @@
 
         const btnbuy = document.createElement('button');
         const name = pd[i].getAttribute('name');
-        node.setAttribute('onclick', `location.href='/buy/buythings/?product=${name}'`);
-
+        node.setAttribute('onclick', `location.href='/inventory/sell/?product=${name}'`);
+        //i+1이 아닌 DB에서 쓰일 수 있는 이름을 보내야 겠다.
         //node.setAttribute('method', `post`);
         const btn2 = document.createElement('button');
         const btn3 = document.createElement('button'); //요소 생성
 
-        const btnbuytxt = document.createTextNode('구매');
+        const btnbuytxt = document.createTextNode('판매');
         const btntxt2 = document.createTextNode('미구현기능');
         const btntxt3 = document.createTextNode('미구현기능'); //텍스트 생성
 
@@ -98,6 +95,7 @@
         node.appendChild(btn2);
         node.appendChild(btn3); //요소 + 텍스트
 
+
         pd[i].parentNode.insertBefore(node, pd[i + 1]);
         btn = 1;
       };
@@ -107,7 +105,7 @@
 
 <body>
   <section>
-    <h2>상 품 리 스 트</h2>
+    <h2>인 벤 토 리</h2>
     <%-list%>
     </div>
   </section>
