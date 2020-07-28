@@ -77,6 +77,13 @@
   nav a:hover {
     color: white;
   }
+
+  #gold {
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+  }
 </style>
 <script>
   window.onload = function () {
@@ -124,6 +131,7 @@
 
 <body>
   <section>
+    <div id="gold">gold : <%=gold%></div>
     <h2>상 품 리 스 트</h2>
     <nav><a href="/menu">뒤로가기</a></nav>
     <%-list%>

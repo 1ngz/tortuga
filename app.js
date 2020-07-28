@@ -51,8 +51,8 @@ app.get("/", (req, res) => {
 
 
 /* /login 요청 라우터 */
-const buy = require('./routes/login.js')(app, db);
-app.use('/buy', buy); //라우터 buy객체 app을 전달
+const login = require('./routes/login.js')(app, db);
+app.use('/login', login); //라우터 buy객체 app을 전달
 
 /* 메인메뉴로 렌더링 */
 app.get("/menu", (req, res) => {
@@ -60,7 +60,10 @@ app.get("/menu", (req, res) => {
     console.log("로그인 정보 없음");
     res.redirect("/login");
   } else {
-    res.render("menu.ejs");
+    const data = {
+      gold: req.session.user.gold,
+    }
+    res.render("menu.ejs", data);
   }
 });
 
@@ -71,7 +74,8 @@ app.use('/buy', buy); //라우터 buy객체 app을 전달
 
 /* /sell 요청 라우터 */
 app.get("/sell", (req, res) => {
-  console.log("sell");
+  console.log("미구현 기능");
+  res.redirect('/menu');
 });
 
 /* /inventory 요청 라우터 */

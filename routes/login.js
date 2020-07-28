@@ -1,13 +1,13 @@
-module.exports = function (app, db) {
+module.exports = (app, db) => {
 
-  const app = require('express');
+  const express = require('express');
   const router = express.Router();
 
-  app.get("/", (req, res) => {
+  router.get("/", (req, res) => {
     res.render('login.ejs');
   });
 
-  app.post("/check", (req, res) => {
+  router.post("/check", (req, res) => {
     console.log("로그인 요청");
     const ID = req.body.loginID;
     const PW = req.body.loginPW;
@@ -26,8 +26,9 @@ module.exports = function (app, db) {
             console.log("로그인 성공");
             req.session.user = {
               id: DBuser[0].id,
-              gold: 0, //돈 기능..
-              //name : 추후에 닉네임 추가
+              name: DBuser[0].name,
+              gold: DBuser[0].gold, //돈 기능..
+
             };
           }
           res.redirect("/menu");

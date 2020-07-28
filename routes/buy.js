@@ -1,13 +1,13 @@
-module.exports = function (app, db) {
+module.exports = (app, db) => {
 
   const url = require('url');
   const express = require('express');
+  const async = require('async');
   const router = express.Router();
 
 
   router.get("/", (req, res) => {
 
-    console.log("buy");
     const sql = `select * from productlist.Product;`;
 
     function DBquery() {
@@ -37,6 +37,7 @@ module.exports = function (app, db) {
 
       const data = {
         list: src,
+        gold: req.session.user.gold,
       };
       res.render("buy.ejs", data);
     });
@@ -44,29 +45,54 @@ module.exports = function (app, db) {
 
 
   router.get("/buythings", (req, res) => {
-    console.log("page : buy");
-
     const _url = req.url;
     const querydata = url.parse(_url, true).query;
 
-    const sql = `insert into productlist.orderlist(userid,productid) values('dlwlgur7',
+    const sql = `insert into productlist.orderlist(userid,productid) values('${req.session.user.id}',
                 (select id from productlist.product where name = '${querydata.product}'));`;
     //product id는 선택 버튼에 따라 다르게 작동
 
-    function DBquery() {
-      return new Promise((resolve, reject) => {
-        db.query(sql, (err, DBOrder) => {
-          if (err) throw err;
-          else {
-            console.log("insert 완료");
-            resolve();
-          }
-        });
+    const gold_sql = `update productlist.user 
+    SET gold=gold-(select price from productlist.product where name = '${querydata.product}')
+    where id = '${req.session.user.id}'`; //유저 정보에서 골드를 가격만큼 빼서 업데이트하는 쿼리
+
+    const gold_check = `select gold from productlist.user where id = '${req.session.user.id}'`
+    //업데이트된 골드를 출력
+
+    async.series([
+        function (callback) {
+          db.query(sql, (err, DBresult) => {
+            if (err) throw err;
+            else {
+              callback(null);
+            }
+          });
+        },
+        function (callback) {
+          db.query(gold_sql, (err, DBresult) => {
+            if (err) throw err;
+            else {
+              callback(null);
+            }
+          });
+        },
+        function (callback) {
+          db.query(gold_check, (err, DBgold) => {
+            if (err) throw err;
+            else {
+              callback(null, DBgold);
+            }
+          })
+        }
+      ],
+
+      (err, DBgold) => {
+        if (err) throw err;
+        else {
+          req.session.user.gold = DBgold[2][0].gold;
+          res.redirect("/buy");
+        }
       });
-    }
-    DBquery().then(() => {
-      res.redirect("/buy");
-    });
   });
 
 

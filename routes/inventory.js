@@ -1,4 +1,4 @@
-module.exports = function (app, db) {
+module.exports = (app, db) => {
 
   const async = require("async");
   const express = require('express');
@@ -6,13 +6,12 @@ module.exports = function (app, db) {
   const url = require("url");
 
   router.get("/", (req, res) => {
-    console.log("inventory");
     const sql = `select name from productlist.Product where id in 
-    (select productid from productlist.orderlist where userid = 'dlwlgur7');`;
+    (select productid from productlist.orderlist where userid = '${req.session.user.id}');`;
     //인벤토리에 있는 상품의 이름을 가져오는 쿼리
 
     const countsql = `select productid, count(*) as count from productlist.orderlist 
-    where userid = 'dlwlgur7' group by productid;`;
+    where userid = '${req.session.user.id}' group by productid;`;
     //인벤토리에 있는 상품별 개수를 파악하는 쿼리.
 
     async.series(
@@ -49,6 +48,7 @@ module.exports = function (app, db) {
 
           const data = {
             list: src,
+            gold: req.session.user.gold,
           };
 
           res.render("inventory.ejs", data);
@@ -58,29 +58,54 @@ module.exports = function (app, db) {
   });
 
   router.get("/sell", (req, res) => {
-    //판매 요청 시
-    console.log("page : buy");
 
     const _url = req.url;
     const querydata = url.parse(_url, true).query;
 
-    const sql = `delete from productlist.orderlist where userid = 'dlwlgur7' and productid = 
+
+    const gold_sql = `update productlist.user SET gold=gold+
+    (select price from productlist.product where name= '${querydata.product}')
+    *(select count(*) as count from productlist.orderlist 
+    where userid = '${req.session.user.id}' AND productid = (select id from productlist.product where name = '${querydata.product}'));`;
+
+    const sql = `delete from productlist.orderlist where userid = '${req.session.user.id}' and productid = 
     (select id from productlist.product where name = '${querydata.product}');`;
 
-    function DBquery() {
-      return new Promise((resolve, reject) => {
-        db.query(sql, (err, DBOrder) => {
+    const gold_check = `select gold from productlist.user where id='${req.session.user.id}'`;
+
+    async.series([
+      function (callback) {
+        db.query(gold_sql, (err, DBresult) => {
           if (err) throw err;
           else {
-            console.log("delete 완료");
-            resolve();
+            callback(null);
           }
         });
-      });
-    }
+      },
+      function (callback) {
+        db.query(sql, (err, DBresult) => {
+          if (err) throw err;
+          else {
+            callback(null);
+          }
+        });
+      },
+      function (callback) {
+        db.query(gold_check, (err, DBgold) => {
+          if (err) throw err;
+          else {
+            callback(null, DBgold);
+          }
+        });
+      }
 
-    DBquery().then(() => {
-      res.redirect("/inventory");
+    ], (err, DBgold) => {
+      if (err) throw err;
+      else {
+        req.session.user.gold = DBgold[2][0].gold;
+        res.redirect("/inventory");
+      }
+
     });
   });
 

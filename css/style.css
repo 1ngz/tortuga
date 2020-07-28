@@ -18,6 +18,8 @@ section {
 
 header {
   font-family: Monaco;
+  width: 50%;
+  margin-left: 25%;
 }
 
 #selectmenu {
@@ -29,7 +31,7 @@ header {
 #btnstart {
   background-color: black;
   color: white;
-  width: 50%;
+  width: 40%;
   border: none;
   height: 40px;
   font-size: 14pt;
