@@ -1,5 +1,3 @@
-
-
 DROP DATABASE IF EXISTS  productlist;
 DROP USER IF EXISTS  buythings@localhost;
 create user buythings@localhost identified WITH mysql_native_password by 'root';
@@ -21,7 +19,6 @@ pw varchar(25),
 name varchar(20)
 );
 
-drop table productlist.orderlist;
 CREATE TABLE productlist.orderlist (
 orderid int AUTO_INCREMENT PRIMARY KEY,
 userid varchar(25),
@@ -39,12 +36,3 @@ insert into productlist.user values('dlwlgur7','rename0206','이지혁');
 
 insert into productlist.orderlist values (1,'dlwlgur7',1);
 insert into productlist.orderlist(userid,productid) values('dlwlgur7',2);
-
-
-select * from productlist.Product;
-select * from productlist.user;
-select * from productlist.orderlist;	
-
-
-select name,count(*) from productlist.Product where id in 
-  (select productid from productlist.orderlist where userid = 'dlwlgur7');
