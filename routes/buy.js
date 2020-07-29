@@ -6,9 +6,13 @@ module.exports = (app, db) => {
   const router = express.Router();
 
 
-  router.get("/", (req, res) => {
+  //buy시 선정된 5개의 데이터는 30분마다 바뀐다. 서버는 30분마다 '/' 요청을 받아 새로운 list를 만든다.
+  //기존 리스트에서 구매시 항목이 삭제되도록 해야함 -> JS -> display:none 및 항목 변경 불가능..
+  //'/' 요청은 유저가 아닌 서버에서 이루어지도록 할 것. 
 
-    const sql = `select * from productlist.Product;`;
+  router.get("/", (req, res) => {
+    const sql = `select * from productlist.Product order by rand() limit 5;`;
+    //아이템 5개 랜덤으로 뽑기
 
     function DBquery() {
       return new Promise((resolve, reject) => {
@@ -48,7 +52,7 @@ module.exports = (app, db) => {
     const _url = req.url;
     const querydata = url.parse(_url, true).query;
 
-    const sql = `insert into productlist.orderlist(userid,productid) values('${req.session.user.id}',
+    const sql = `insert into productlist.inventory(userid,productid) values('${req.session.user.id}',
                 (select id from productlist.product where name = '${querydata.product}'));`;
     //product id는 선택 버튼에 따라 다르게 작동
 
@@ -90,6 +94,7 @@ module.exports = (app, db) => {
         if (err) throw err;
         else {
           req.session.user.gold = DBgold[2][0].gold;
+
           res.redirect("/buy");
         }
       });

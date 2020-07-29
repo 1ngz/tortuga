@@ -85,49 +85,7 @@
     width: 15%;
   }
 </style>
-<script>
-  window.onload = function () {
-    let pd = document.getElementsByClassName('product');
 
-    let btn = 0;
-    for (let i = 0; i < pd.length; i++) {
-
-      pd[i].onclick = function () {
-
-        const del = document.getElementsByClassName('additional');
-        if (btn > 0) {
-          pd[0].parentNode.removeChild(del[0]);
-        }
-
-        const node = document.createElement('div'); //요소 생성
-        node.setAttribute('class', 'additional');
-
-        const btnbuy = document.createElement('button');
-        const name = pd[i].getAttribute('name');
-        node.setAttribute('onclick', `location.href='/buy/buythings/?product=${name}'`);
-
-        //node.setAttribute('method', `post`);
-        const btn2 = document.createElement('button');
-        const btn3 = document.createElement('button'); //요소 생성
-
-        const btnbuytxt = document.createTextNode('구매');
-        const btntxt2 = document.createTextNode('미구현기능');
-        const btntxt3 = document.createTextNode('미구현기능'); //텍스트 생성
-
-        btnbuy.appendChild(btnbuytxt);
-        btn2.appendChild(btntxt2);
-        btn3.appendChild(btntxt3);
-
-        node.appendChild(btnbuy);
-        node.appendChild(btn2);
-        node.appendChild(btn3); //요소 + 텍스트
-
-        pd[i].parentNode.insertBefore(node, pd[i + 1]);
-        btn = 1;
-      };
-    };
-  }
-</script>
 
 <body>
   <section>
@@ -135,6 +93,7 @@
     <h2>상 품 리 스 트</h2>
     <nav><a href="/menu">뒤로가기</a></nav>
     <%-list%>
+    <script src='/js/addbtnBuy.js'></script>
     </div>
   </section>
 </body>

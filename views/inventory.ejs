@@ -83,50 +83,6 @@
     width: 15%;
   }
 </style>
-<script>
-  window.onload = function () {
-    let pd = document.getElementsByClassName('product');
-
-    let btn = 0;
-    for (let i = 0; i < pd.length; i++) {
-
-      pd[i].onclick = function () {
-
-        const del = document.getElementsByClassName('additional');
-        if (btn > 0) {
-          pd[0].parentNode.removeChild(del[0]);
-        }
-
-        const node = document.createElement('div'); //요소 생성
-        node.setAttribute('class', 'additional');
-
-        const btnbuy = document.createElement('button');
-        const name = pd[i].getAttribute('name');
-        node.setAttribute('onclick', `location.href='/inventory/sell/?product=${name}'`);
-        //i+1이 아닌 DB에서 쓰일 수 있는 이름을 보내야 겠다.
-        //node.setAttribute('method', `post`);
-        const btn2 = document.createElement('button');
-        const btn3 = document.createElement('button'); //요소 생성
-
-        const btnbuytxt = document.createTextNode('판매');
-        const btntxt2 = document.createTextNode('미구현기능');
-        const btntxt3 = document.createTextNode('미구현기능'); //텍스트 생성
-
-        btnbuy.appendChild(btnbuytxt);
-        btn2.appendChild(btntxt2);
-        btn3.appendChild(btntxt3);
-
-        node.appendChild(btnbuy);
-        node.appendChild(btn2);
-        node.appendChild(btn3); //요소 + 텍스트
-
-
-        pd[i].parentNode.insertBefore(node, pd[i + 1]);
-        btn = 1;
-      };
-    };
-  }
-</script>
 
 <body>
   <section>
@@ -135,6 +91,7 @@
     <nav><a href="/menu">메뉴 선택</a></nav>
     <%-list%>
     </div>
+    <script src="/js/addbtnIV.js"></script>
   </section>
 </body>
 

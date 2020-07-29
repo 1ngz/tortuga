@@ -3,6 +3,7 @@ module.exports = (app, db) => {
   const express = require('express');
   const router = express.Router();
 
+
   router.get("/", (req, res) => {
     res.render('login.ejs');
   });
@@ -22,13 +23,11 @@ module.exports = (app, db) => {
           if (req.session.user) {
             console.log("이미 로그인됨");
           } else {
-
             console.log("로그인 성공");
             req.session.user = {
               id: DBuser[0].id,
               name: DBuser[0].name,
               gold: DBuser[0].gold, //돈 기능..
-
             };
           }
           res.redirect("/menu");
