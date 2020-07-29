@@ -1,88 +1,13 @@
 <!Doctype html>
-
 <html>
 
 <head>
+  <meta charset='utf-8'>
   <title>토투가 - inventory</title>
 </head>
 <link rel='stylesheet' type="text/css" href="../css/style.css">
-<style>
-  #container {
-    width: 50%;
-    margin-left: 25%;
-    margin-top: 25px;
-
-    height: 300px;
-
-    display: flex;
-    flex-direction: column;
-
-    overflow-y: hidden;
-  }
-
-  .product {
-    height: 50px;
-    background-color: rgba(20, 20, 20, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    font-size: 16pt;
-    text-align: left;
-    margin-bottom: 1px;
-  }
-
-  .product:hover {
-    color: grey;
-  }
-
-  .product div {
-    border: 1px solid black;
-    width: 100%;
-    height: 100px;
-    color: white;
-  }
-
-
-  .additional {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-
-    height: 40px;
-  }
-
-  .additional button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 0.2px solid rgba(255, 255, 255, 0.2);
-    width: 25%;
-    height: 90%;
-
-  }
-
-  nav {
-    float: right;
-  }
-
-  nav a:visited,
-  a:hover,
-  a:link {
-    text-decoration: none;
-    color: black;
-
-    font-weight: bold;
-  }
-
-  nav a:hover {
-    color: white;
-
-  }
-
-  #gold {
-    float: right;
-    margin: 0;
-    padding: 0;
-    width: 15%;
-  }
-</style>
+<link rel='stylesheet' type="text/css" href="../css/trade.css">
+<script src='/js/addBtn.js'></script>
 
 <body>
   <section>
@@ -91,7 +16,9 @@
     <nav><a href="/menu">메뉴 선택</a></nav>
     <%-list%>
     </div>
-    <script src="/js/addbtnIV.js"></script>
+    <script>
+      dyncBtn('판매');
+    </script>
   </section>
 </body>
 

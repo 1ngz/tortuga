@@ -1,16 +1,17 @@
 * {
   margin: 0;
   padding: 0;
+
 }
 
 section {
   width: 550px;
-  margin: 100px 0 0 500px;
-  height: 385px;
+  margin: 50px 0 0 500px;
+  height: 585px;
   border: 1px solid black;
-
+  color: white;
   padding-top: 25px;
-  background-image: url('../images/bg1.jpg');
+  background-image: url('../images/bg2.jpg');
   background-size: 550px;
   background-repeat: no-repeat;
   text-align: center;
@@ -19,7 +20,11 @@ section {
 header {
   font-family: Monaco;
   width: 50%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
   margin-left: 25%;
+  border-radius: 5px;
+  margin-bottom: 200px;
 }
 
 #selectmenu {
@@ -35,4 +40,5 @@ header {
   border: none;
   height: 40px;
   font-size: 14pt;
+  border-radius: 5px;
 }

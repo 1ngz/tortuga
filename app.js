@@ -50,10 +50,11 @@ app.get("/", (req, res) => {
 });
 
 /* /login 요청 라우터 */
-const login = require("./routes/login.js")(app, db);
+const login = require("./routes/_login.js")(app, db);
 app.use("/login", login); //라우터 buy객체 app을 전달
 
 
+/*로그아웃 요청 시 처리 */
 app.get("/logout", function (req, res, next) {
   console.log(`${req.session.user.id}님 로그아웃 요청`);
   req.session.destroy(function () {
@@ -61,10 +62,10 @@ app.get("/logout", function (req, res, next) {
   }); //세션 삭제
   res.clearCookie("sid");
   res.redirect("/login");
-}); /*로그아웃 요청 시 처리 */
+});
 
 
-/* 메인메뉴로 렌더링 */
+/* 메인메뉴 렌더링 */
 app.get("/menu", (req, res) => {
   const data = {
     gold: req.session.user.gold,
@@ -72,8 +73,9 @@ app.get("/menu", (req, res) => {
   res.render("menu.ejs", data);
 });
 
+
 /* /buy 요청 라우터 */
-const buy = require("./routes/buy.js")(app, db);
+const buy = require("./routes/_buy.js")(app, db);
 app.use("/buy", buy); //라우터 buy객체 app을 전달
 
 /* /sell 요청 라우터 */
@@ -82,9 +84,10 @@ app.get("/sell", (req, res) => {
   res.redirect("/menu");
 });
 
+
 /* /inventory 요청 라우터 */
-const inventory = require("./routes/inventory.js")(app, db);
-app.use("/inventory", inventory); //라우터 buy객체 app을 전달
+const inventory = require("./routes/_inventory.js")(app, db);
+app.use("/inventory", inventory); //라우터 inventory객체 app을 전달
 
 app.listen(3001, function () {
   console.log("start!! express server port on 3001!!");
