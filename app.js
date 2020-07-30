@@ -69,6 +69,7 @@ app.get("/logout", function (req, res, next) {
 app.get("/menu", (req, res) => {
   const data = {
     gold: req.session.user.gold,
+    name: req.session.user.name,
   };
   res.render("menu.ejs", data);
 });

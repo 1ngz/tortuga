@@ -3,9 +3,11 @@
 
 <head>
   <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>토투가</title>
 
   <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/trade.css">
   <style>
     #divLogin {
       display: flex;
@@ -19,37 +21,37 @@
       width: 50%;
     }
 
-
-    #gold {
-      float: right;
-      margin: 0;
-      padding: 0;
-      width: 15%;
-    }
-
     .logout {
-      float: right;
+      margin-left: 10pt;
+      float: left;
+      background-color: black;
+      border: none;
+      color: white;
+      width: 15%;
+      height: 5%;
     }
   </style>
 </head>
 
 <body>
   <section>
+    <div id="gold">
+      <div><%=name%></div>
+      <img src="../images/gold.png" style="width:30%">
+      <%=gold%>
+    </div>
 
-    <div id="gold">gold : <%=gold%></div>
     <button class="logout" onclick="location.href='./logout'">로그아웃</button>
     <header>
       <h1 style="font-family:Fantasy;">토 투 가</h1>
       <h4>T O R T U G A</h4>
     </header>
     <div id="selectmenu">
-      <h1 style="background-color: rgba(0,0,0,0.7);">메 뉴 선 택</h1>
+      <h1 style="background-color: rgba(0,0,0,0.8);">메 뉴 선 택</h1>
       <div id="divLogin">
-        <button id="btnstart" onclick="location.href='./buy'">매입하기</button>
-
-        <button id="btnstart" onclick="location.href='./sell'">판매하기</button>
-
-        <button id="btnstart" onclick="location.href='./inventory'">저장소</button>
+        <button class="btnstart" onclick="location.href='./buy'">매입하기</button>
+        <button class="btnstart" onclick="location.href='./sell'">판매하기</button>
+        <button class="btnstart" onclick="location.href='./inventory'">저장소</button>
       </div>
     </div>
   </section>
