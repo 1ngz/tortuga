@@ -64,6 +64,14 @@ app.get("/logout", function (req, res, next) {
   res.redirect("/login");
 });
 
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    console.log('로그인 정보 없음');
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
 
 /* 메인메뉴 렌더링 */
 app.get("/menu", (req, res) => {

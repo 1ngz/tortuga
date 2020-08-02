@@ -14,7 +14,6 @@ module.exports = (app, db) => {
     const PW = req.body.loginPW;
     const sql = `select * from productlist.user where id = '${ID}';`;
 
-
     db.query(sql, (err, DBuser) => {
       if (err) throw err;
       else {
